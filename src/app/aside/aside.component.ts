@@ -1,14 +1,14 @@
 import { Component } from '@angular/core';
-import { AuthService } from '../auth.service';
+import { LoginService } from '../login.service';
 @Component({
   selector: 'app-aside',
   templateUrl: './aside.component.html',
   styleUrls: ['./aside.component.scss'],
 })
 export class AsideComponent {
-  constructor(private authService: AuthService) {}
+  constructor(private loginService: LoginService) {}
 
   logout(): void {
-    this.authService.logout();
+    this.loginService.logout();
   }
 }

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
+import { LoginService } from '../login.service';
 
 @Component({
   selector: 'app-signup',
@@ -11,7 +11,7 @@ export class SignupComponent {
   userData = { username: '', email: '', password: '' };
   errorMessage = '';
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: LoginService, private router: Router) {}
 
   signup(): void {
     this.authService.signup(this.userData).subscribe(

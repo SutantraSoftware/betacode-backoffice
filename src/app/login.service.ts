@@ -1,13 +1,14 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
-export class AuthService {
-  private apiUrl = 'https://betacode-backend-q29d.onrender.com/betacode/api';
+export class LoginService {
+  private apiUrl = environment.apiUrl;
   private authStatusSubject = new BehaviorSubject<boolean>(false);
 
   constructor(private http: HttpClient) {
