@@ -1,3 +1,12 @@
 <div class="container-fluid position-relative bg-white p-0">
-  <router-outlet></router-outlet>
+  <app-aside *ngIf="isLoggedIn()"></app-aside>
+  <div class="content">
+    <app-header *ngIf="isLoggedIn()"></app-header>
+    <div class="container-fluid pt-4 px-4">
+      <div class="vh-100 bg-light rounded p-4 mx-0">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+    <app-footer *ngIf="isLoggedIn()"></app-footer>
+  </div>
 </div>
