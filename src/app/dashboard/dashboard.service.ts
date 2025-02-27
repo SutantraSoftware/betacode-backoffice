@@ -17,21 +17,12 @@ export class DashboardService {
     return this.http.get(`${this.apiUrlLocal}/getAllCountries`);
   }
 
-  // Add country details with image
-  addCountryDetails(newCountry: {
-    country_name: string;
-    country_code: string;
-    image: File;
-  }): Observable<any> {
-    const formData = new FormData();
-    formData.append('country_name', newCountry.country_name);
-    formData.append('country_code', newCountry.country_code);
-    formData.append('image', newCountry.image);
-    return this.http.post(`${this.apiUrlLocal}/insertCountry`, formData);
+  addCountryDetails( country:any): Observable<any> {
+    return this.http.post(`${this.apiUrlLocal}/insertCountry`, country);
   }
 
   // Update country details
-  updateCountryDetails(updatedValueId: any): Observable<any> {
-    return this.http.put(`${this.apiUrlLocal}/updateCountry`, updatedValueId);
+  updateCountryDetails(updatedValueId: any, updatedCountry:any): Observable<any> {
+    return this.http.put(`${this.apiUrlLocal}/updateCountry/${updatedValueId}`, updatedCountry);
   }
 }
