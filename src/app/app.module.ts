@@ -12,6 +12,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { CardComponent } from './card/card.component';
+import { CountryDetailsEditModule } from './country-details-edit/country-details-edit.module';
+import { CountryDetailsEditComponent } from './country-details-edit/country-details-edit.component';
 
 @NgModule({
   declarations: [
@@ -23,8 +25,9 @@ import { CardComponent } from './card/card.component';
     SignupComponent,
     DashboardComponent,
     CardComponent,
+    CountryDetailsEditComponent
   ],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule],
+  imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule, CountryDetailsEditModule],
   providers: [],
   bootstrap: [AppComponent],
 })

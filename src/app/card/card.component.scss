@@ -24,12 +24,15 @@
 }
 
 .basic-card .card-content {
-  padding: 30px;
+  padding: 30px 30px 30px 0;
+    height: 80px;
 }
 
 .basic-card .card-title {
-  font-size: 25px;
+  font-size: 20px;
   font-family: "Open Sans", sans-serif;
+  font-weight: 400;
+  color: black !important;
 }
 
 .basic-card .card-text {
@@ -37,8 +40,8 @@
 }
 
 .basic-card .card-link {
-  padding: 25px;
-  width: -webkit-fill-available;
+  padding: 14px 0;
+    width: -webkit-fill-available;
 }
 
 .basic-card .card-link a {
@@ -82,12 +85,19 @@
 }
 
 .basic-card-light {
-  background-color: #fff;
+  background-color: #f7eeee;
+  width: 300px;
 }
 
-.basic-card-light .card-text {
-  color: #7b7b7b;
-}
+.basic-card-light{
+  .card-text {
+    color: #7b7b7b;
+   img{
+    width: 180px;
+    height: 80px;
+   }
+  }
+} 
 
 .basic-card-light .card-link {
   border-top: 1px solid #eee;
@@ -272,5 +282,15 @@ button {
   button {
     padding: 10px 15px;
     font-size: 14px;
+  }
+}
+.modal-content{
+  form{
+    .card-text{
+      img{
+        width: 150px !important;
+        height: 150px !important;
+      }
+    }
   }
 }
