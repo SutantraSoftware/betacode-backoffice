@@ -12,22 +12,26 @@ export class DashboardComponent implements OnInit, OnDestroy {
   newCountry = { country_name: '', country_code: '' };
   imagePath: string = '';
   subscription=new Subscription();
+  destroy$=new Subject<any>();
 
   constructor(private dashboardService: DashboardService, private cdRef:ChangeDetectorRef) {}
 
   ngOnInit():void {
     this.getAllCountries();
+    this.dashboardService.fetchAndSetCountries();
   } 
   
  getAllCountries() {
-  this.subscription.add( this.dashboardService.getCountriesDetails().subscribe((countriesList) => {
+  this.dashboardService.countries$.pipe(takeUntil(this.destroy$)).subscribe((countriesList) => {
     console.log(this.countriesList);
     this.countriesList = countriesList;
     this.cdRef.markForCheck();
-  }))
+  })
    
  }
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
+    this.destroy$.next(true);
+    this.destroy$.complete();
   }
 }

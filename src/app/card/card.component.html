@@ -63,29 +63,26 @@
       <img [src]="item.imagePath" [alt]="item.country_code" />
     </div>
 
-    <div *ngIf="isEditing !== i">
       <div class="card-link">
         <span>{{ item.country_code }}</span>
       </div>
-    </div>
 
     <div class="card-actions">
       <button class="btn edit" (click)="openEditModal(item, i)">
         <i class="fas fa-edit"></i>
       </button>
-      <button class="btn delete" (click)="deleteCard(i)">
+      <button class="btn delete" (click)="deleteCard(item?._id)">
         <i class="fas fa-trash"></i>
       </button>
     </div>
   </div>
 </div>
 
+<!-- Edit Modal -->
 <ng-container *ngIf="isEditModalOpen">
   <country-details-edit
     [isEditModalOpen]="isEditModalOpen"
-    ;
     [countryDetails]="newCountry"
-    ;
     (closeEditPopup)="closeEditPopup($event)"
   ></country-details-edit>
 </ng-container>

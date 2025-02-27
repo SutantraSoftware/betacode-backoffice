@@ -1,10 +1,4 @@
-import {
-  ChangeDetectorRef,
-  Component,
-  Input,
-  OnDestroy,
-  OnInit,
-} from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import { DashboardService } from '../dashboard/dashboard.service';
 import { NgForm } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -15,7 +9,7 @@ import { DomSanitizer } from '@angular/platform-browser';
   styleUrls: ['./card.component.scss'],
 })
 export class CardComponent implements OnInit, OnDestroy {
-  @Input() items?: any[];
+  @Input() items?: any[]; // input items array
   beUrl: string = 'http://localhost:4000/';
   isModalOpen = false;
   isEditModalOpen = false;
@@ -34,19 +28,18 @@ export class CardComponent implements OnInit, OnDestroy {
     imagePath: '',
   };
 
-  constructor(
-    private dashboardService: DashboardService,
-    private sanitizer: DomSanitizer,
-    private cdRef: ChangeDetectorRef
-  ) {}
+  constructor(private dashboardService: DashboardService, private sanitizer: DomSanitizer, private cdRef: ChangeDetectorRef) {}
 
+  ngOnChanges(changes:SimpleChanges):void{
+    console.log(changes);
+  }
   ngOnInit(): void {
+    // For sanitizing image URLs if required
     this.items?.forEach((item) => {
-      item.imagePath = this.sanitizer.bypassSecurityTrustResourceUrl(
-        `data:image/png;base64, ${item.imagePath}`
-      );
+      item.imagePath = this.sanitizer.bypassSecurityTrustResourceUrl(`data:image/png;base64, ${item.imagePath}`);
     });
   }
+
   openModal() {
     this.isModalOpen = true;
   }
@@ -55,21 +48,20 @@ export class CardComponent implements OnInit, OnDestroy {
     this.isModalOpen = false;
   }
 
-  editCard(index: number) {
-    this.isEditing = index;
-  }
+  // Edit card and open the edit modal
   openEditModal(item: any, index: number) {
-    this.isEditModalOpen = true;
-    this.isEditing = index;
-    this.newCountry = item;
-    console.log(this.newCountry);
-    this.cdRef.markForCheck();
+    this.isEditModalOpen = true; // Open the edit modal
+    this.isEditing = index; // Mark the current card as editing
+    this.newCountry = { ...item }; // Pass the current country details to the modal
+    console.log(this.newCountry); // Check if data is correctly passed
   }
+
+  // Close the edit modal
   closeEditPopup(event: any) {
     this.isEditModalOpen = event;
-    this.isEditing = null;
-    this.cdRef.markForCheck();
+    this.isEditing = null; // Reset editing status
   }
+
   saveCard(index: number) {
     this.isEditing = null;
   }
@@ -78,20 +70,22 @@ export class CardComponent implements OnInit, OnDestroy {
     this.isEditing = null;
   }
 
-  deleteCard(index: number) {
-    this.items?.splice(index, 1);
+  deleteCard(itemId: any) {
+    this.dashboardService.deleteCountryDetails(itemId).subscribe(()=>{
+      this.dashboardService.fetchAndSetCountries();
+    })
   }
 
   onFileChange(event: any) {
     this.file = event.target.files[0];
   }
-  // image convert into base64
+
   convertFileToBase64(file: File): Promise<string> {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
-      reader.onload = () => resolve(reader.result as string); // Base64 result
+      reader.onload = () => resolve(reader.result as string);
       reader.onerror = (error) => reject(error);
-      reader.readAsDataURL(file); // Convert file to Base64
+      reader.readAsDataURL(file);
     });
   }
 
@@ -102,10 +96,12 @@ export class CardComponent implements OnInit, OnDestroy {
           const base64Image = await this.convertFileToBase64(this.file);
           this.newCountry.imagePath = base64Image;
           this.dashboardService.addCountryDetails(this.newCountry).subscribe({
-            next: () => {},
+            next: () => {
+              this.dashboardService.fetchAndSetCountries();
+            },
             error: (err) => {
               console.error('Error creating post', err);
-            },
+            }
           });
         } catch (error) {
           console.error('Error converting image to Base64', error);
