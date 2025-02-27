@@ -8,6 +8,9 @@ import { DashboardService } from './dashboard.service';
 })
 export class DashboardComponent {
   countriesList: any = [];
+  newCountry = { country_name: '', country_code: '' };
+  imageUrl: string = '';
+
   constructor(private service: DashboardService) {
     this.getAllCountries();
   }
