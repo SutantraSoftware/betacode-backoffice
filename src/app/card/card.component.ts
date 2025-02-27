@@ -1,4 +1,10 @@
-import { ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  Input,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { DashboardService } from '../dashboard/dashboard.service';
 import { NgForm } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -15,9 +21,9 @@ export class CardComponent implements OnInit, OnDestroy {
   isEditModalOpen = false;
   selectedImage: File | null = null;
   isEditing: number | null = null;
-  file!:File|null;
-  editableImage:any;
-  updatedItem:any;
+  file!: File | null;
+  editableImage: any;
+  updatedItem: any;
   newCountry: {
     country_name: string;
     country_code: string;
@@ -28,11 +34,18 @@ export class CardComponent implements OnInit, OnDestroy {
     imagePath: '',
   };
 
-  constructor(private dashboardService: DashboardService, private sanitizer: DomSanitizer, private cdRef:ChangeDetectorRef) {}
+  constructor(
+    private dashboardService: DashboardService,
+    private sanitizer: DomSanitizer,
+    private cdRef: ChangeDetectorRef
+  ) {}
 
   ngOnInit(): void {
-    this.items?.forEach((item)=>{
-      item.imagePath = this.sanitizer.bypassSecurityTrustResourceUrl(`data:image/png;base64, ${item.imagePath}`);    })
+    this.items?.forEach((item) => {
+      item.imagePath = this.sanitizer.bypassSecurityTrustResourceUrl(
+        `data:image/png;base64, ${item.imagePath}`
+      );
+    });
   }
   openModal() {
     this.isModalOpen = true;
@@ -43,78 +56,73 @@ export class CardComponent implements OnInit, OnDestroy {
   }
 
   editCard(index: number) {
-    this.isEditing = index; 
+    this.isEditing = index;
   }
-  openEditModal(item:any, index:number){
-    this.isEditModalOpen=true;
-    this.isEditing = index; 
-    this.newCountry=item;
+  openEditModal(item: any, index: number) {
+    this.isEditModalOpen = true;
+    this.isEditing = index;
+    this.newCountry = item;
     console.log(this.newCountry);
     this.cdRef.markForCheck();
   }
-  closeEditPopup(event:any) {
+  closeEditPopup(event: any) {
     this.isEditModalOpen = event;
-    this.isEditing = null; 
+    this.isEditing = null;
     this.cdRef.markForCheck();
   }
   saveCard(index: number) {
-    this.isEditing = null; 
+    this.isEditing = null;
   }
 
   cancelEdit() {
-    this.isEditing = null; 
+    this.isEditing = null;
   }
 
   deleteCard(index: number) {
-    this.items?.splice(index, 1); 
+    this.items?.splice(index, 1);
   }
 
   onFileChange(event: any) {
     this.file = event.target.files[0];
   }
-    
+  // image convert into base64
   convertFileToBase64(file: File): Promise<string> {
-      return new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.onload = () => resolve(reader.result as string); // Base64 result
-        reader.onerror = (error) => reject(error);
-        reader.readAsDataURL(file); // Convert file to Base64
-      });
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result as string); // Base64 result
+      reader.onerror = (error) => reject(error);
+      reader.readAsDataURL(file); // Convert file to Base64
+    });
   }
-    
+
   async submitForm(form: NgForm) {
-      if (form.valid) {
-        if (this.file) {
-          try {
-            const base64Image = await this.convertFileToBase64(this.file);
-            this.newCountry.imagePath=base64Image;
-            this.dashboardService.addCountryDetails(this.newCountry)
-            .subscribe({
-              next: () => {
-                
-              },
-              error: (err) => {
-                console.error('Error creating post', err);
-              }
-            });
-          } catch (error) {
-            console.error('Error converting image to Base64', error);
-          }
-        } else {
-          console.error('Please select an image file to upload.');
+    if (form.valid) {
+      if (this.file) {
+        try {
+          const base64Image = await this.convertFileToBase64(this.file);
+          this.newCountry.imagePath = base64Image;
+          this.dashboardService.addCountryDetails(this.newCountry).subscribe({
+            next: () => {},
+            error: (err) => {
+              console.error('Error creating post', err);
+            },
+          });
+        } catch (error) {
+          console.error('Error converting image to Base64', error);
         }
       } else {
-        console.error('Form is not valid');
+        console.error('Please select an image file to upload.');
       }
-      this.resetForm();
+    } else {
+      console.error('Form is not valid');
+    }
+    this.resetForm();
   }
-  resetForm(){
-    this.newCountry.country_code="";
-    this.newCountry.country_name="";
-    this.newCountry.imagePath="";
-    this.isModalOpen=false;
+  resetForm() {
+    this.newCountry.country_code = '';
+    this.newCountry.country_name = '';
+    this.newCountry.imagePath = '';
+    this.isModalOpen = false;
   }
-  ngOnDestroy(): void {
-    
-  }
+  ngOnDestroy(): void {}
 }

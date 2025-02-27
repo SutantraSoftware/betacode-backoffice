@@ -1,47 +1,54 @@
 <div class="modal">
-    <div class="modal-content">
-      <span class="close-btn" (click)="closeEditModal()">×</span>
-      <form #updateForm="ngForm" (ngSubmit)="updateCountryForm(updateForm)" class="form-container">
-        <h2>Update Country Info</h2>
-  
-        <div class="form-group">
-          <label for="countryName">Country Name</label>
-          <input
-            id="countryName"
-            [(ngModel)]="countryDetails.country_name"
-            name="country_name"
-            required
-            class="input-field"
-          />
-        </div>
-  
-        <div class="form-group">
-          <label for="countryCode">Country Code</label>
-          <input
-            id="countryCode"
-            [(ngModel)]="countryDetails.country_code"
-            name="country_code"
-            required
-            class="input-field"
-          />
-        </div>
-        <div class="card-text">
-           <p>Existed Image</p>
-          <img [src]="countryDetails.imagePath" [alt]="countryDetails.country_code" />
-        </div>
-        <div class="form-group">
-          <label for="countryImage">Country Image</label>
-          <input
-            type="file"
-            id="countryImage"
-            (change)="onFileChange($event)"
-            class="input-field"
-          />
-        </div>
-  
-        <div class="form-actions">
-          <button type="submit" class="btn-submit">Update Country</button>
-        </div>
-      </form>
-    </div>
+  <div class="modal-content">
+    <span class="close-btn" (click)="closeEditModal()">×</span>
+    <form
+      #updateForm="ngForm"
+      (ngSubmit)="updateCountryForm(updateForm)"
+      class="form-container"
+    >
+      <h2>Update Country Info</h2>
+
+      <div class="form-group">
+        <label for="countryName">Country Name</label>
+        <input
+          id="countryName"
+          [(ngModel)]="countryDetails.country_name"
+          name="country_name"
+          required
+          class="input-field"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="countryCode">Country Code</label>
+        <input
+          id="countryCode"
+          [(ngModel)]="countryDetails.country_code"
+          name="country_code"
+          required
+          class="input-field"
+        />
+      </div>
+      <div class="card-text">
+        <p>Existed Image</p>
+        <img
+          [src]="countryDetails.imagePath"
+          [alt]="countryDetails.country_code"
+        />
+      </div>
+      <div class="form-group">
+        <label for="countryImage">Country Image</label>
+        <input
+          type="file"
+          id="countryImage"
+          (change)="onFileChange($event)"
+          class="input-field"
+        />
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="btn-submit">Update Country</button>
+      </div>
+    </form>
   </div>
+</div>
