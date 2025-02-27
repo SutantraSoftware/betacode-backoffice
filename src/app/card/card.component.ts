@@ -114,13 +114,11 @@ export class CardComponent implements OnInit, OnDestroy {
     }
     this.resetForm();
   }
-
   resetForm() {
     this.newCountry.country_code = '';
     this.newCountry.country_name = '';
     this.newCountry.imagePath = '';
     this.isModalOpen = false;
   }
-
   ngOnDestroy(): void {}
 }

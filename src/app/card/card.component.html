@@ -5,8 +5,13 @@
 <div class="modal" *ngIf="isModalOpen">
   <div class="modal-content">
     <span class="close-btn" (click)="closeModal()">×</span>
-    <form #blogForm="ngForm" (ngSubmit)="submitForm(blogForm)" class="form-container">
+    <form
+      #blogForm="ngForm"
+      (ngSubmit)="submitForm(blogForm)"
+      class="form-container"
+    >
       <h2>Add New Country</h2>
+
       <div class="form-group">
         <label for="countryName">Country Name</label>
         <input
@@ -47,7 +52,10 @@
 </div>
 
 <div class="row">
-  <div *ngFor="let item of items; let i = index" class="basic-card m-2 basic-card-light">
+  <div
+    *ngFor="let item of items; let i = index"
+    class="basic-card m-2 basic-card-light"
+  >
     <div class="card-content">
       <span class="card-title">{{ item.country_name }}</span>
     </div>

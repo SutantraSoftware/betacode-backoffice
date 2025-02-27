@@ -25,7 +25,7 @@ import { CountryDetailsEditComponent } from './country-details-edit/country-deta
     SignupComponent,
     DashboardComponent,
     CardComponent,
-    CountryDetailsEditComponent
+    CountryDetailsEditComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule, CountryDetailsEditModule],
   providers: [],

@@ -1,4 +1,12 @@
-import { ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { DashboardService } from '../dashboard/dashboard.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { NgForm } from '@angular/forms';
@@ -7,7 +15,7 @@ import { Subject } from 'rxjs';
 @Component({
   selector: 'country-details-edit',
   templateUrl: './country-details-edit.component.html',
-  styleUrls: ['./country-details-edit.component.scss']
+  styleUrls: ['./country-details-edit.component.scss'],
 })
 export class CountryDetailsEditComponent implements OnInit, OnDestroy {
   file!: File | null;
@@ -74,7 +82,6 @@ resetForm(){
     }
     this.closeEditModal();
   }
-
   ngOnDestroy(): void {
     this.destroy$.next(true);
     this.destroy$.complete();
