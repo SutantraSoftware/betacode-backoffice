@@ -1,6 +1,18 @@
 <div class="inquiry-form">
   <h2>ENQUIRY NOW</h2>
   <form id="enquiryForm">
+    <label for="heading1">Country:</label>
+    <select name="country">
+      <pre>{{ countries | json }}</pre>
+      <option
+        *ngFor="let country of countries"
+        [selected]="countryCode === country.country_code"
+        [value]="country.country_code"
+      >
+        {{ country.country_name }}
+      </option>
+    </select>
+
     <label for="heading1">Heading 1:</label>
     <input
       type="text"

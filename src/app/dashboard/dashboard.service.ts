@@ -18,13 +18,19 @@ export class DashboardService {
     return this.http.get(`${this.apiUrlLocal}/getAllCountries`);
   }
 
-  addCountryDetails( country:any): Observable<any> {
+  addCountryDetails(country: any): Observable<any> {
     return this.http.post(`${this.apiUrlLocal}/insertCountry`, country);
   }
 
   // Update country details
-  updateCountryDetails(updatedValueId: any, updatedCountry:any): Observable<any> {
-    return this.http.put(`${this.apiUrlLocal}/updateCountry/${updatedValueId}`, updatedCountry);
+  updateCountryDetails(
+    updatedValueId: any,
+    updatedCountry: any
+  ): Observable<any> {
+    return this.http.put(
+      `${this.apiUrlLocal}/updateCountry/${updatedValueId}`,
+      updatedCountry
+    );
   }
 
   fetchAndSetCountries() {
@@ -33,7 +39,9 @@ export class DashboardService {
     });
   }
 
-  deleteCountryDetails(deletedValueId:any): Observable<any>{
-    return this.http.delete(`${this.apiUrlLocal}/deleteCountry/${deletedValueId}`)
+  deleteCountryDetails(deletedValueId: any): Observable<any> {
+    return this.http.delete(
+      `${this.apiUrlLocal}/deleteCountry/${deletedValueId}`
+    );
   }
 }
