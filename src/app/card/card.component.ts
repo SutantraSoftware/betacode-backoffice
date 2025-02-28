@@ -1,7 +1,15 @@
-import { ChangeDetectorRef, Component, Input, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  Input,
+  OnDestroy,
+  OnInit,
+  SimpleChanges,
+} from '@angular/core';
 import { DashboardService } from '../dashboard/dashboard.service';
 import { NgForm } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-card',
@@ -28,15 +36,22 @@ export class CardComponent implements OnInit, OnDestroy {
     imagePath: '',
   };
 
-  constructor(private dashboardService: DashboardService, private sanitizer: DomSanitizer, private cdRef: ChangeDetectorRef) {}
+  constructor(
+    private dashboardService: DashboardService,
+    private sanitizer: DomSanitizer,
+    private cdRef: ChangeDetectorRef,
+    private router: Router
+  ) {}
 
-  ngOnChanges(changes:SimpleChanges):void{
+  ngOnChanges(changes: SimpleChanges): void {
     console.log(changes);
   }
   ngOnInit(): void {
     // For sanitizing image URLs if required
     this.items?.forEach((item) => {
-      item.imagePath = this.sanitizer.bypassSecurityTrustResourceUrl(`data:image/png;base64, ${item.imagePath}`);
+      item.imagePath = this.sanitizer.bypassSecurityTrustResourceUrl(
+        `data:image/png;base64, ${item.imagePath}`
+      );
     });
   }
 
@@ -71,9 +86,9 @@ export class CardComponent implements OnInit, OnDestroy {
   }
 
   deleteCard(itemId: any) {
-    this.dashboardService.deleteCountryDetails(itemId).subscribe(()=>{
+    this.dashboardService.deleteCountryDetails(itemId).subscribe(() => {
       this.dashboardService.fetchAndSetCountries();
-    })
+    });
   }
 
   onFileChange(event: any) {
@@ -101,7 +116,7 @@ export class CardComponent implements OnInit, OnDestroy {
             },
             error: (err) => {
               console.error('Error creating post', err);
-            }
+            },
           });
         } catch (error) {
           console.error('Error converting image to Base64', error);

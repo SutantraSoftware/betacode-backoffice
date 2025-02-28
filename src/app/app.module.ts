@@ -14,6 +14,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { CardComponent } from './card/card.component';
 import { CountryDetailsEditModule } from './country-details-edit/country-details-edit.module';
 import { CountryDetailsEditComponent } from './country-details-edit/country-details-edit.component';
+import { CommonModule } from '@angular/common';
+import { FormsComponent } from './forms/forms.component';
 
 @NgModule({
   declarations: [
@@ -26,8 +28,16 @@ import { CountryDetailsEditComponent } from './country-details-edit/country-deta
     DashboardComponent,
     CardComponent,
     CountryDetailsEditComponent,
+    FormsComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule, CountryDetailsEditModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    CommonModule,
+    HttpClientModule,
+    FormsModule,
+    CountryDetailsEditModule,
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })
