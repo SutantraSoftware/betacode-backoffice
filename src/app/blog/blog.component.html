@@ -1,8 +1,12 @@
 <div class="app_form">
-    <div class="inquiry-form">
-      <h2>BLOG FORM</h2>
-      <form id="enquiryForm">
-        <!-- <label for="heading1">Country:</label>
+  <div class="inquiry-form">
+    <h2>BLOG FORM</h2>
+    <form
+      (submit)="submitBlog()"
+      enctype="multipart/form-data"
+      id="enquiryForm"
+    >
+      <!-- <label for="heading1">Country:</label>
         <select name="country">
           <option
             *ngFor="let country of countries"
@@ -12,26 +16,46 @@
             {{ country.country_name }}
           </option>
         </select> -->
-     
-        <label for="title">Title:</label>
-        <input type="text" id="title" name="title" required>
 
-        <!-- Date Input -->
-        <label for="date">Date:</label>
-        <input type="date" id="date" name="date" required>
+      <label for="title">Title:</label>
+      <input type="text" id="title" name="title" [(ngModel)]="title" required />
 
-        <!-- Description Input -->
-        <label for="description">Description:</label>
-        <textarea id="description" name="description" rows="4" cols="50" required></textarea>
+      <!-- Date Input -->
+      <label for="date">Date:</label>
+      <input type="date" id="date" name="date" [(ngModel)]="date" required />
 
-        <!-- Image Upload -->
-        <label for="image">Upload Image:</label>
-        <input type="file" id="image" name="image" accept="image/*" required>
+      <!-- Description Input -->
+      <label for="description">Description:</label>
+      <textarea
+        id="description"
+        name="description"
+        rows="4"
+        cols="50"
+        [(ngModel)]="description"
+        required
+      ></textarea>
 
-        <label for="likes">Likes:</label>
-        <input type="number" id="likes" name="likes" required>
+      <!-- Image Upload -->
+      <label for="image">Upload Image:</label>
+      <input
+        type="file"
+        id="image"
+        name="image"
+        accept="image/*"
+        (change)="onFileChange($event)"
+        required
+      />
 
-        <button type="submit">SUBMIT</button>
-      </form>
-    </div>
-    </div>
+      <label for="likes">Likes:</label>
+      <input
+        type="number"
+        id="likes"
+        name="likes"
+        [(ngModel)]="likes"
+        required
+      />
+
+      <button type="submit">SUBMIT</button>
+    </form>
+  </div>
+</div>
