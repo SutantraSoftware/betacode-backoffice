@@ -44,4 +44,22 @@ export class DashboardService {
       `${this.apiUrlLocal}/deleteCountry/${deletedValueId}`
     );
   }
+
+  //content form
+
+  addContentToCountry(formValues: any): Observable<any> {
+    return this.http.post(`${this.apiUrlLocal}/addcountryform`, formValues);
+  }
+
+  updateContentToCountry(formValues: any, id: any): Observable<any> {
+    return this.http.put(
+      `${this.apiUrlLocal}/updatecountryform/${id}`,
+      formValues
+    );
+  }
+  getCountryContent(countryCode: string): Observable<any> {
+    return this.http.get(
+      `${this.apiUrlLocal}/getSingleCountryform?country_code=${countryCode}`
+    );
+  }
 }
