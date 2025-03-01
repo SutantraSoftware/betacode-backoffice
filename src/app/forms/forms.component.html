@@ -1,9 +1,9 @@
+<div class="app_form">
 <div class="inquiry-form">
   <h2>ENQUIRY NOW</h2>
   <form id="enquiryForm">
     <label for="heading1">Country:</label>
     <select name="country">
-      <pre>{{ countries | json }}</pre>
       <option
         *ngFor="let country of countries"
         [selected]="countryCode === country.country_code"
@@ -58,4 +58,5 @@
 
     <button type="submit">SUBMIT</button>
   </form>
+</div>
 </div>
