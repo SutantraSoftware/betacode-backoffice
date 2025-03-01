@@ -16,6 +16,8 @@ import { CountryDetailsEditModule } from './country-details-edit/country-details
 import { CountryDetailsEditComponent } from './country-details-edit/country-details-edit.component';
 import { CommonModule } from '@angular/common';
 import { FormsComponent } from './forms/forms.component';
+import { BlogComponent } from './blog/blog.component';
+import { ContactusComponent } from './contactus/contactus.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +31,8 @@ import { FormsComponent } from './forms/forms.component';
     CardComponent,
     CountryDetailsEditComponent,
     FormsComponent,
+    BlogComponent,
+    ContactusComponent,
   ],
   imports: [
     BrowserModule,

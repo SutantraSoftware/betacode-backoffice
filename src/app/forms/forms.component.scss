@@ -1,7 +1,14 @@
+
+.app_form{
+  display: flex;
+  justify-content: center;
+}
+
+
 .inquiry-form {
-  width: 50%;
-  background: #970c10;
-  padding: 20px;
+  width: 45%;
+  background: #353f4f;
+  padding: 30px;
   border-radius: 5px;
   color: white;
 }
@@ -35,8 +42,6 @@
 .inquiry-form button {
   width: 100%;
   padding: 10px;
-  background: #142d4c;
-  color: white;
   border: none;
   border-radius: 5px;
   cursor: pointer;
