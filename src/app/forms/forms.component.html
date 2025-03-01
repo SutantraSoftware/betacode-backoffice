@@ -1,61 +1,185 @@
-<div class="inquiry-form">
-  <h2>ENQUIRY NOW</h2>
-  <form id="enquiryForm">
-    <label for="heading1">Country:</label>
-    <select name="country">
-      <pre>{{ countries | json }}</pre>
-      <option
-        *ngFor="let country of countries"
-        [selected]="countryCode === country.country_code"
-        [value]="country.country_code"
-      >
-        {{ country.country_name }}
-      </option>
-    </select>
+<ng-container *ngIf="!isObjectResponse">
+  <div class="inquiry-form">
+    <h2>Add Content to Country</h2>
+    <form
+      #countryForm="ngForm"
+      (submit)="submitForm()"
+      enctype="multipart/form-data"
+      id="enquiryForm"
+    >
+      <label for="heading1">Country:</label>
+      <select name="country" (change)="onCountryChange($event)">
+        <option
+          *ngFor="let country of countries"
+          [selected]="countryCode === country.country_code"
+          [value]="country.country_code"
+        >
+          {{ country.country_name }}
+        </option>
+      </select>
 
-    <label for="heading1">Heading 1:</label>
-    <input
-      type="text"
-      id="heading1"
-      name="heading1"
-      placeholder="Enter your text"
-      required
-    />
+      <p>Selected Country Code: {{ countryCode }}</p>
 
-    <label for="content1">Content 1:</label>
-    <textarea
-      id="content1"
-      name="content1"
-      placeholder="Enter your message"
-      required
-    ></textarea>
+      <label for="heading1">Heading 1:</label>
+      <input
+        type="text"
+        id="heading1"
+        name="heading1"
+        placeholder="Enter your text"
+        [(ngModel)]="heading1"
+        required
+      />
 
-    <label for="heading2">Heading 2:</label>
-    <input
-      type="text"
-      id="heading2"
-      name="heading2"
-      placeholder="Enter your text"
-      required
-    />
+      <label for="content1">Content 1:</label>
+      <textarea
+        id="content1"
+        name="content1"
+        placeholder="Enter your message"
+        [(ngModel)]="content1"
+        required
+      ></textarea>
 
-    <label for="content2">Content 2:</label>
-    <textarea
-      id="content2"
-      name="content2"
-      placeholder="Enter your message"
-      required
-    ></textarea>
+      <label for="heading2">Heading 2:</label>
+      <input
+        type="text"
+        id="heading2"
+        name="heading2"
+        placeholder="Enter your text"
+        [(ngModel)]="heading2"
+        required
+      />
 
-    <label for="file1">Upload File:</label>
-    <input type="file" id="file1" name="file1" />
+      <label for="content2">Content 2:</label>
+      <textarea
+        id="content2"
+        name="content2"
+        placeholder="Enter your message"
+        [(ngModel)]="content2"
+        required
+      ></textarea>
 
-    <label for="file2">Upload File:</label>
-    <input type="file" id="file2" name="file2" />
+      <label for="file1">Upload File:</label>
+      <input
+        #fileInput
+        type="file"
+        id="image1"
+        name="image1"
+        (change)="onFileSelected($event, 0)"
+      />
 
-    <label for="file3">Upload File:</label>
-    <input type="file" id="file3" name="file3" />
+      <label for="file2">Upload File:</label>
+      <input
+        #fileInput
+        type="file"
+        id="image2"
+        name="image2"
+        (change)="onFileSelected($event, 1)"
+      />
 
-    <button type="submit">SUBMIT</button>
-  </form>
-</div>
+      <label for="file3">Upload File:</label>
+      <input
+        #fileInput
+        type="file"
+        id="image3"
+        name="image3"
+        (change)="onFileSelected($event, 2)"
+      />
+
+      <button type="submit">SUBMIT</button>
+    </form>
+  </div>
+</ng-container>
+
+<!-- update form -->
+<ng-container *ngIf="isObjectResponse">
+  <div class="inquiry-form">
+    <h2>Update Country Content</h2>
+    <form
+      #updateCountryContentForm="ngForm"
+      (submit)="updateForm()"
+      enctype="multipart/form-data"
+      id="enquiryForm"
+    >
+      <label for="heading1">Country:</label>
+      <select name="country" (change)="onCountryChange($event)">
+        <option
+          *ngFor="let country of countries"
+          [selected]="countryCode === country.country_code"
+          [value]="country.country_code"
+        >
+          {{ country.country_name }}
+        </option>
+      </select>
+
+      <p>Selected Country Code: {{ countryCode }}</p>
+
+      <label for="heading1">Heading 1:</label>
+      <input
+        type="text"
+        id="heading1"
+        name="heading1"
+        placeholder="Enter your text"
+        [(ngModel)]="heading1"
+        required
+      />
+
+      <label for="content1">Content 1:</label>
+      <textarea
+        id="content1"
+        name="content1"
+        placeholder="Enter your message"
+        [(ngModel)]="content1"
+        required
+      ></textarea>
+
+      <label for="heading2">Heading 2:</label>
+      <input
+        type="text"
+        id="heading2"
+        name="heading2"
+        placeholder="Enter your text"
+        [(ngModel)]="heading2"
+        required
+      />
+
+      <label for="content2">Content 2:</label>
+      <textarea
+        id="content2"
+        name="content2"
+        placeholder="Enter your message"
+        [(ngModel)]="content2"
+        required
+      ></textarea>
+
+      <img [src]="countryContent.image1" alt="Image" />
+      <label for="file1">Upload File:</label>
+      <input
+        #fileInput
+        type="file"
+        id="image1"
+        name="image1"
+        (change)="onFileSelected($event, 0)"
+      />
+      <img [src]="countryContent.image2" alt="Image" />
+      <label for="file2">Upload File:</label>
+      <input
+        #fileInput
+        type="file"
+        id="image2"
+        name="image2"
+        (change)="onFileSelected($event, 1)"
+      />
+      <img [src]="countryContent.image3" alt="Image" />
+      <label for="file3">Upload File:</label>
+      <input
+        #fileInput
+        type="file"
+        id="image3"
+        name="image3"
+        (change)="onFileSelected($event, 2)"
+      />
+
+      <button type="submit">Update</button>
+    </form>
+  </div>
+</ng-container>
