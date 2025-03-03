@@ -1,61 +1,103 @@
-<div class="app_form">
-  <div class="inquiry-form">
-    <h2>BLOG FORM</h2>
-    <form
-      (submit)="submitBlog()"
-      enctype="multipart/form-data"
-      id="enquiryForm"
-    >
-      <!-- <label for="heading1">Country:</label>
-        <select name="country">
-          <option
-            *ngFor="let country of countries"
-            [selected]="countryCode === country.country_code"
-            [value]="country.country_code"
-          >
-            {{ country.country_name }}
-          </option>
-        </select> -->
+<div class="basicc-card">
+  <a class="basicc" (click)="openModal()"> <i class="fas fa-plus"></i> ADD </a>
+</div>
 
-      <label for="title">Title:</label>
-      <input type="text" id="title" name="title" [(ngModel)]="title" required />
+<div class="modal" *ngIf="isModalOpen">
+  <div class="modal-content">
+    <span class="close-btn" (click)="closeModal()">×</span>
+    <form #blogForm="ngForm" class="form-container">
+      <h2>Add New Blog</h2>
 
-      <!-- Date Input -->
-      <label for="date">Date:</label>
-      <input type="date" id="date" name="date" [(ngModel)]="date" required />
+      <div class="form-group">
+        <label for="countryName">Tilte</label>
+        <input
+          id="countryName"
+          name="country_name"
+          required
+          class="input-field"
+        />
+      </div>
 
-      <!-- Description Input -->
-      <label for="description">Description:</label>
-      <textarea
-        id="description"
-        name="description"
-        rows="4"
-        cols="50"
-        [(ngModel)]="description"
-        required
-      ></textarea>
+      <div class="form-group">
+        <label for="countryCode">Description</label>
+        <input
+          id="countryCode"
+          name="country_code"
+          required
+          class="input-field"
+        />
+      </div>
 
-      <!-- Image Upload -->
-      <label for="image">Upload Image:</label>
-      <input
-        type="file"
-        id="image"
-        name="image"
-        accept="image/*"
-        (change)="onFileChange($event)"
-        required
-      />
+      <div class="form-group">
+        <label for="countryImage">Image</label>
+        <input
+          type="file"
+          id="countryImage"
+          (change)="onFileChange($event)"
+          class="input-field"
+        />
+      </div>
 
-      <label for="likes">Likes:</label>
-      <input
-        type="number"
-        id="likes"
-        name="likes"
-        [(ngModel)]="likes"
-        required
-      />
+      <div class="form-group">
+        <label for="countryCode">Date</label>
+        <input
+          id="countryCode"
+          name="country_code"
+          required
+          class="input-field"
+        />
+      </div>
 
-      <button type="submit">SUBMIT</button>
+      <div class="form-group">
+        <label for="countryCode">Likes</label>
+        <input
+          id="countryCode"
+          name="country_code"
+          required
+          class="input-field"
+        />
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="btn-submit">Add Blog</button>
+      </div>
     </form>
   </div>
 </div>
+
+<div class="row">
+  <div
+    *ngFor="let item of blogsList; let i = index"
+    class="basic-card m-2 basic-card-light"
+  >
+    <a [routerLink]="['/country', item.country_code]">
+      <div class="card-content">
+        <span class="card-title">{{ item.country_name }}</span>
+      </div>
+      <div class="card-text">
+        <img [src]="item.imagePath" [alt]="item.country_code" />
+      </div>
+
+      <div class="card-link">
+        <span>{{ item.country_code }}</span>
+      </div>
+    </a>
+
+    <div class="card-actions">
+      <button class="btn edit" (click)="openEditModal(item, i)">
+        <i class="fas fa-edit"></i>
+      </button>
+      <!-- <button class="btn delete" (click)="deleteCard(item?._id)">
+        <i class="fas fa-trash"></i>
+      </button> -->
+    </div>
+  </div>
+</div>
+
+<!-- Edit Modal -->
+<ng-container *ngIf="isEditModalOpen">
+  <country-details-edit
+    [isEditModalOpen]="isEditModalOpen"
+    (closeEditPopup)="closeEditPopup($event)"
+  ></country-details-edit>
+</ng-container>

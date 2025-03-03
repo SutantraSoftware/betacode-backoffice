@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
 import { BlogService } from './blog.service';
 
@@ -7,15 +7,57 @@ import { BlogService } from './blog.service';
   templateUrl: './blog.component.html',
   styleUrls: ['./blog.component.scss'],
 })
-export class BlogComponent {
+export class BlogComponent implements OnInit {
+  blogsList: any = [];
   title: any = '';
   date: any = '';
   description: string = '';
   image: any = '';
   likes: string = '';
   file!: File | null;
+  cdRef: any;
+  private unsubscribe$ = new Subject<void>();
+  isModalOpen = false;
+  isEditModalOpen = false;
+  isEditing: number | null = null;
 
   constructor(private service: BlogService) {}
+
+  openModal() {
+    this.isModalOpen = true;
+  }
+
+  closeModal() {
+    this.isModalOpen = false;
+  }
+
+  // Edit card and open the edit modal
+  openEditModal(item: any, index: number) {
+    this.isEditModalOpen = true; // Open the edit modal
+    this.isEditing = index; // Mark the current card as editing
+    // this.newCountry = { ...item }; // Pass the current country details to the modal
+    // console.log(this.newCountry); // Check if data is correctly passed
+  }
+
+  // Close the edit modal
+  closeEditPopup(event: any) {
+    this.isEditModalOpen = event;
+    this.isEditing = null; // Reset editing status
+  }
+
+  saveCard(index: number) {
+    this.isEditing = null;
+  }
+
+  cancelEdit() {
+    this.isEditing = null;
+  }
+
+  // deleteCard(itemId: any) {
+  //   this.dashboardService.deleteCountryDetails(itemId).subscribe(() => {
+  //     this.dashboardService.fetchAndSetCountries();
+  //   });
+  // }
 
   resetForm() {
     this.title = '';
@@ -26,7 +68,7 @@ export class BlogComponent {
   }
 
   onFileChange(event: any) {
-    const file = event.target.files[0]; // Get the first file
+    const file = event.target.files[0];
     if (file) {
       this.file = file;
     }
@@ -52,13 +94,24 @@ export class BlogComponent {
         image: this.image,
         likes: this.likes,
       };
-      this.service
-        .addBlog(blogData)
-        // .pipe(takeUntil(this.destroy$))
-        .subscribe((res) => {
-          console.log(res);
-          this.resetForm();
-        });
+      this.service.addBlog(blogData).subscribe((res) => {
+        console.log(res);
+        this.resetForm();
+      });
     }
+  }
+  ngOnInit() {
+    this.service.getAllBlogs();
+    this.service.blogs$
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe((blogs) => {
+        console.log('Blogs received:', blogs);
+        this.blogsList = blogs;
+      });
+  }
+
+  ngOnDestroy() {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
 }

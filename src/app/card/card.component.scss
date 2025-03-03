@@ -25,7 +25,7 @@
 
 .basic-card .card-content {
   padding: 30px 30px 30px 0;
-    height: 80px;
+  height: 80px;
 }
 
 .basic-card .card-title {
@@ -41,7 +41,7 @@
 
 .basic-card .card-link {
   padding: 14px 0;
-    width: -webkit-fill-available;
+  width: -webkit-fill-available;
 }
 
 .basic-card .card-link a {
@@ -89,15 +89,15 @@
   width: 300px;
 }
 
-.basic-card-light{
+.basic-card-light {
   .card-text {
     color: #7b7b7b;
-   img{
-    width: 180px;
-    height: 80px;
-   }
+    img {
+      width: 180px;
+      height: 80px;
+    }
   }
-} 
+}
 
 .basic-card-light .card-link {
   border-top: 1px solid #eee;
@@ -284,10 +284,10 @@ button {
     font-size: 14px;
   }
 }
-.modal-content{
-  form{
-    .card-text{
-      img{
+.modal-content {
+  form {
+    .card-text {
+      img {
         width: 150px !important;
         height: 150px !important;
       }
