@@ -7,21 +7,27 @@ import { BlogService } from './blog.service';
   templateUrl: './blog.component.html',
   styleUrls: ['./blog.component.scss'],
 })
-export class BlogComponent implements OnInit {
+export class BlogComponent implements OnInit, OnDestroy {
   blogsList: any = [];
-  title: any = '';
-  date: any = '';
+  title: string = '';
+  date: string = '';
   description: string = '';
-  image: any = '';
-  likes: string = '';
+  image: string = '';
   file!: File | null;
-  cdRef: any;
-  private unsubscribe$ = new Subject<void>();
   isModalOpen = false;
-  isEditModalOpen = false;
   isEditing: number | null = null;
+  private unsubscribe$ = new Subject<void>();
 
   constructor(private service: BlogService) {}
+
+  ngOnInit() {
+    this.service.fetchAndSetblogs();
+    this.service.blogs$
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe((blogs) => {
+        this.blogsList = blogs;
+      });
+  }
 
   openModal() {
     this.isModalOpen = true;
@@ -31,42 +37,46 @@ export class BlogComponent implements OnInit {
     this.isModalOpen = false;
   }
 
-  // Edit card and open the edit modal
+  // Open the edit modal and initialize fields for editing
   openEditModal(item: any, index: number) {
-    this.isEditModalOpen = true; // Open the edit modal
-    this.isEditing = index; // Mark the current card as editing
-    // this.newCountry = { ...item }; // Pass the current country details to the modal
-    // console.log(this.newCountry); // Check if data is correctly passed
+    this.isEditing = index; // Set the row index as the editing row
+    // Initialize fields with existing values
+    this.title = item.title;
+    this.date = item.date;
+    this.description = item.description;
+    this.image = item.image;
   }
 
-  // Close the edit modal
-  closeEditPopup(event: any) {
-    this.isEditModalOpen = event;
-    this.isEditing = null; // Reset editing status
-  }
-
+  // Save edited data and send it to backend
   saveCard(index: number) {
-    this.isEditing = null;
+    const updatedBlog = {
+      _id: this.blogsList[index]._id, // Using the ID from the original blog
+      title: this.title,
+      date: this.date,
+      description: this.description,
+      image: this.image,
+    };
+
+    this.service.updateBlog(updatedBlog).subscribe((res) => {
+      this.blogsList[index] = res; // Update the blog list with the updated data
+      this.isEditing = null; // Reset the editing flag
+      this.service.fetchAndSetblogs();
+    });
   }
 
+  // Cancel edit mode and close the modal
   cancelEdit() {
     this.isEditing = null;
   }
 
-  // deleteCard(itemId: any) {
-  //   this.dashboardService.deleteCountryDetails(itemId).subscribe(() => {
-  //     this.dashboardService.fetchAndSetCountries();
-  //   });
-  // }
-
-  resetForm() {
-    this.title = '';
-    this.date = '';
-    this.description = '';
-    this.image = '';
-    this.likes = '';
+  // Delete a blog entry
+  deleteCard(blogId: any) {
+    this.service.deleteblogDetails(blogId).subscribe(() => {
+      this.service.fetchAndSetblogs(); // Refresh the blog list after deletion
+    });
   }
 
+  // File change handler for image upload
   onFileChange(event: any) {
     const file = event.target.files[0];
     if (file) {
@@ -74,6 +84,7 @@ export class BlogComponent implements OnInit {
     }
   }
 
+  // Convert file to base64 format
   convertFileToBase64(file: File): Promise<string> {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
@@ -83,31 +94,30 @@ export class BlogComponent implements OnInit {
     });
   }
 
+  // Submit new blog
   async submitBlog() {
     if (this.file) {
       const base64Image = await this.convertFileToBase64(this.file);
       this.image = base64Image;
-      const blogData = {
-        title: this.title,
-        date: this.date,
-        description: this.description,
-        image: this.image,
-        likes: this.likes,
-      };
-      this.service.addBlog(blogData).subscribe((res) => {
-        console.log(res);
-        this.resetForm();
-      });
     }
+    const blogData = {
+      title: this.title,
+      date: this.date,
+      description: this.description,
+      image: this.image,
+    };
+
+    this.service.addBlog(blogData).subscribe((res) => {
+      this.resetForm();
+    });
   }
-  ngOnInit() {
-    this.service.getAllBlogs();
-    this.service.blogs$
-      .pipe(takeUntil(this.unsubscribe$))
-      .subscribe((blogs) => {
-        console.log('Blogs received:', blogs);
-        this.blogsList = blogs;
-      });
+
+  // Reset the form fields
+  resetForm() {
+    this.title = '';
+    this.date = '';
+    this.description = '';
+    this.image = '';
   }
 
   ngOnDestroy() {
@@ -115,3 +125,8 @@ export class BlogComponent implements OnInit {
     this.unsubscribe$.complete();
   }
 }
+
+
+
+
+
