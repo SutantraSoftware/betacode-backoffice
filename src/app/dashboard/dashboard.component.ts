@@ -14,17 +14,34 @@ export class DashboardComponent implements OnInit, OnDestroy {
   subscription=new Subscription();
   destroy$=new Subject<any>();
 
+  displayedCountries :any =  [];
+  isViewAll = false;
+
+
   constructor(private dashboardService: DashboardService, private cdRef:ChangeDetectorRef) {}
 
   ngOnInit():void {
     this.getAllCountries();
     this.dashboardService.fetchAndSetCountries();
+    // this.displayedCountries = this.countriesList.slice(0, 3);
   } 
+
+  showAllCountries() {
+    this.displayedCountries = this.countriesList;
+    this.isViewAll = true;
+  }
+
+  // Close the "View All" and show only the first 3 countries again
+  closeAllCountries() {
+    this.displayedCountries = this.countriesList.slice(0, 3);
+    this.isViewAll = false;
+  }
   
  getAllCountries() {
   this.dashboardService.countries$.pipe(takeUntil(this.destroy$)).subscribe((countriesList) => {
     console.log(this.countriesList);
     this.countriesList = countriesList;
+    this.displayedCountries = countriesList.slice(0, 3); 
     this.cdRef.markForCheck();
   })
    
