@@ -165,9 +165,30 @@
   background: white;
   padding: 20px;
   border-radius: 8px;
-  width: 500px;
+  width: 470px;
   text-align: center;
+  top: 27px;
+  height: 560px;
+  overflow-y: scroll;
+  scrollbar-width: thin;
+  scrollbar-color: #4caf50 #f1f1f1;
 }
+/* Custom scrollbar for Webkit browsers (Chrome, Safari, etc.) */
+.modal-content::-webkit-scrollbar {
+  width: 8px;
+}
+.modal-content::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+.modal-content::-webkit-scrollbar-thumb {
+  background-color: #4caf50; /* Scrollbar color */
+  border-radius: 10px;
+  border: 2px solid #f1f1f1; /* Border around the thumb */
+}
+
+
+
 
 .modal input {
   display: block;
@@ -294,12 +315,6 @@ button {
     }
   }
 }
-
-
-
-
-
-
 .blog-table {
     width: 100%;
     border-collapse: collapse;
@@ -338,3 +353,9 @@ button {
     color: white;
   }
   
+  .warning-message {
+    color: red;
+    font-size: 14px;
+    margin-top: 5px;
+  }
+

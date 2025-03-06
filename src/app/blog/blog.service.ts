@@ -31,7 +31,7 @@ export class BlogService {
       this.blogSubject.next(blogsList);
     });
   }
-
+ 
   deleteblogDetails(deletedValueId: any): Observable<any> {
     return this.http.delete(`${this.apiUrlLocal}/deleteblog/${deletedValueId}`);
   }

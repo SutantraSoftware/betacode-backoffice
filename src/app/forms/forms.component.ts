@@ -37,7 +37,7 @@ export class FormsComponent implements OnInit, OnDestroy {
 
   constructor(
     private service: DashboardService,
-    private cd: ChangeDetectorRef,
+    private cd: ChangeDetectorRef, 
     private route: ActivatedRoute,
     private sanitizer: DomSanitizer
   ) {

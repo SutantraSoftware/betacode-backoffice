@@ -15,7 +15,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   destroy$=new Subject<any>();
 
   displayedCountries :any =  [];
-  isViewAll = false;
+  // isViewAll = false;
 
 
   constructor(private dashboardService: DashboardService, private cdRef:ChangeDetectorRef) {}
@@ -28,13 +28,13 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   showAllCountries() {
     this.displayedCountries = this.countriesList;
-    this.isViewAll = true;
+    // this.isViewAll = true;
   }
 
   // Close the "View All" and show only the first 3 countries again
   closeAllCountries() {
     this.displayedCountries = this.countriesList.slice(0, 3);
-    this.isViewAll = false;
+    // this.isViewAll = false;
   }
   
  getAllCountries() {
