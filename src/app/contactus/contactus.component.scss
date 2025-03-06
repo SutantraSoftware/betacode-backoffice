@@ -47,3 +47,20 @@
     cursor: pointer;
   }
   
+
+
+  .contact-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .contact-table th,
+  .contact-table td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .contact-table th {
+    background-color: #f4f4f4;
+  }
