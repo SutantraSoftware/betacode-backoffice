@@ -1,90 +1,97 @@
-<div class="basicc-card">
-  <a class="basicc" (click)="openModal()"> <i class="fas fa-plus"></i> ADD </a>
-</div>
-
-<div class="modal" *ngIf="isModalOpen">
-  <div class="modal-content">
-    <span class="close-btn" (click)="closeModal()">×</span>
-    <form
-      #blogForm="ngForm"
-      (ngSubmit)="submitForm(blogForm)"
-      class="form-container"
-    >
-      <h2>Add New Country</h2>
-
-      <div class="form-group">
-        <label for="countryName">Country Name</label>
-        <input
-          id="countryName"
-          [(ngModel)]="newCountry.country_name"
-          name="country_name"
-          required
-          class="input-field"
-        />
-      </div>
-
-      <div class="form-group">
-        <label for="countryCode">Country Code</label>
-        <input
-          id="countryCode"
-          [(ngModel)]="newCountry.country_code"
-          name="country_code"
-          required
-          class="input-field"
-        />
-      </div>
-
-      <div class="form-group">
-        <label for="countryImage">Country Image</label>
-        <input
-          type="file"
-          id="countryImage"
-          (change)="onFileChange($event)"
-          class="input-field"
-        />
-      </div>
-
-      <div class="form-actions">
-        <button type="submit" class="btn-submit">Add Country</button>
-      </div>
-    </form>
+<div class="flag-cards">
+  <div class="basicc-card">
+    <a class="basicc" (click)="openModal()"> <i class="fas fa-plus"></i> ADD </a>
   </div>
-</div>
-
-<div class="row">
-  <div
-    *ngFor="let item of items; let i = index"
-    class="basic-card m-2 basic-card-light"
-  >
-    <a [routerLink]="['/country', item.country_code]">
-      <div class="card-content">
-        <span class="card-title">{{ item.country_name }}</span>
-      </div>
-      <div class="card-text">
-        <img [src]="item.imagePath" [alt]="item.country_code" />
-      </div>
-
-      <div class="card-link">
-        <span>{{ item.country_code }}</span>
-      </div>
-    </a>
-
-    <div class="card-actions">
-      <button class="btn edit" (click)="openEditModal(item, i)">
-        <i class="fas fa-edit"></i>
-      </button>
-      <button class="btn delete" (click)="deleteCard(item?._id)">
-        <i class="fas fa-trash"></i>
-      </button>
+  <div class="modal" *ngIf="isModalOpen">
+    <div class="modal-content">
+      <span class="close-btn" (click)="closeModal()">×</span>
+      <form
+        #blogForm="ngForm"
+        (ngSubmit)="submitForm(blogForm)"
+        class="form-container"
+      >
+        <h2>Add New Country</h2>
+  
+        <div class="form-group">
+          <label for="countryName">Country Name</label>
+          <input
+            id="countryName"
+            [(ngModel)]="newCountry.country_name"
+            name="country_name"
+            required
+            class="input-field"
+          />
+        </div>
+  
+        <div class="form-group">
+          <label for="countryCode">Country Code</label>
+          <input
+            id="countryCode"
+            [(ngModel)]="newCountry.country_code"
+            name="country_code"
+            required
+            class="input-field"
+          />
+        </div>
+  
+        <div class="form-group">
+          <label for="countryImage">Country Image</label>
+          <input
+            type="file"
+            id="countryImage"
+            (change)="onFileChange($event)"
+            class="input-field"
+          />
+        </div>
+  
+        <div class="form-actions">
+          <button type="submit" class="btn-submit">Add Country</button>
+        </div>
+      </form>
     </div>
   </div>
+  <div class="row">
+    <div
+      *ngFor="let item of cardItems; let i = index"
+      class="basic-card basic-card-light"
+    >
+      <a [routerLink]="['/country', item.country_code]">
+        <div class="card-content">
+          <span class="card-title">{{ item.country_name }}</span>
+        </div>
+        <div class="card-text">
+          <img [src]="item.imagePath" [alt]="item.country_code" />
+        </div> 
+      </a>
+  
+      <div class="card-actions">
+        <button class="btn edit" (click)="openEditModal(item, i)">
+          <i class="fas fa-edit"></i>
+        </button>
+        <button class="btn delete" (click)="deleteCard(item?._id)">
+          <i class="fas fa-trash"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="show-hide-btn text-center">
+    <button class="view-all-link mt-3 mb-2" (click)="showAllFlags()" *ngIf="allFlagsEnabled">
+      Show More         
+    </button>
+    <button class="view-all-link mt-3 mb-2" (click)="hideSomeFlags()" *ngIf="!allFlagsEnabled">
+      Show Less          
+    </button>
+  </div>
 </div>
-
-<!-- Edit Modal -->
-<ng-container *ngIf="isEditModalOpen">
+ <!-- Edit Modal -->
+ <ng-container *ngIf="isEditModalOpen">
   <country-details-edit
     [isEditModalOpen]="isEditModalOpen"
     [countryDetails]="newCountry"
     (closeEditPopup)="closeEditPopup($event)"
   ></country-details-edit>
 </ng-container>
+
+
+
+

@@ -1,0 +1,88 @@
+
+.app_form{
+    display: flex;
+    justify-content: center;
+  }
+  
+  
+  .inquiry-form {
+    width: 45%;
+    background: #353f4f;
+    padding: 30px;
+    border-radius: 5px;
+    color: white;
+  }
+  
+  .inquiry-form h2 {
+    margin-top: 0;
+    color: white;
+  }
+  
+  .inquiry-form label {
+    font-weight: bold;
+    display: block;
+    margin-top: 10px;
+  }
+  
+  .inquiry-form input,
+  .inquiry-form select,
+  .inquiry-form textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0 10px;
+    border: none;
+    border-radius: 5px;
+  }
+  
+  .inquiry-form textarea {
+    height: 80px;
+    resize: vertical;
+  }
+  
+  .inquiry-form button {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+
+
+  .contact-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .contact-table th,
+  .contact-table td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .contact-table th {
+    background-color: #f4f4f4;
+  }
+
+.contact-table-part{
+    .view-all-link{
+        a{
+            padding: 10px 18px;
+            border-radius: 50px;
+            background-color: #d3081c;
+            color: white;
+        }
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding-bottom: 10px;
+        
+    }
+    display: flex;
+    flex-direction: column;
+    align-items: center;   
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+ 
+ 

@@ -9,8 +9,9 @@ import { environment } from 'src/environments/environment';
 })
 export class LoginService {
   private apiUrl = environment.apiUrl;
+  private apiUrlLocal = environment.apiUrlLocal;
   private authStatusSubject = new BehaviorSubject<boolean>(false);
-
+  
   constructor(private http: HttpClient) {
     this.authStatusSubject.next(this.isAuthenticated());
     const storedStatus = localStorage.getItem('authStatus');
@@ -55,5 +56,13 @@ export class LoginService {
 
   getAuthStatus(): Observable<boolean> {
     return this.authStatusSubject.asObservable();
+  }
+
+  forgotPassword(data: { email: string }): Observable<any> {
+    return this.http.post(`${this.apiUrlLocal}/forgotPassword`, data);
+  }
+
+  getUserName(): string {
+    return localStorage.getItem('userName') ?? '';
   }
 }

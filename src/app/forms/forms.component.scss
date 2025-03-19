@@ -1,16 +1,32 @@
-
-.app_form{
+/* Ensure the form is centered on the page */
+html, body {
+  height: 100%;
+  margin: 0;
   display: flex;
   justify-content: center;
+  align-items: center;
+  font-family: Arial, sans-serif; /* Optional: For better font rendering */
 }
 
+/* Optional: Full-screen container if you want the form to always be in the center */
+.app_form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%; /* Ensure it fills the entire screen */
+}
 
 .inquiry-form {
   width: 45%;
-  background: #353f4f;
+  max-width: 800px; /* Optional: Set a max-width for the form */
+  // background: #353f4f;
+  background-color:#970c10;
   padding: 30px;
   border-radius: 5px;
   color: white;
+  box-sizing: border-box;
+  overflow: hidden; /* Prevent overflow issues caused by large images */
 }
 
 .inquiry-form h2 {
@@ -45,4 +61,18 @@
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  background-color: #007bff;
+  color: white;
+}
+
+.inquiry-form button:hover {
+  background-color: #0056b3;
+}
+
+/* Style for images within the form */
+.inquiry-form img {
+  max-width: 100%; /* Ensures images stay within the width of the form */
+  height: auto; /* Maintain aspect ratio */
+  display: block; /* Prevent image from affecting form layout */
+  margin-bottom: 10px; /* Add space below the image */
 }

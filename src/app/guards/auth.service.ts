@@ -17,12 +17,6 @@ export class AuthService {
     localStorage.setItem('isLoggedIn', 'true'); // Save login state
   }
 
-  // logout() {
-  //   this.isLoggedIn = false;
-  //   localStorage.removeItem('isLoggedIn'); // Clear login state
-  //   this.router.navigate(['/login']);
-  // }
-
   isAuthenticated(): boolean {
     return this.isLoggedIn;
   }
