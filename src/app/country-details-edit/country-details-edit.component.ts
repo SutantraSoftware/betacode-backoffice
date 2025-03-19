@@ -6,6 +6,7 @@ import {
   OnDestroy,
   OnInit,
   Output,
+  Renderer2,
 } from '@angular/core';
 import { DashboardService } from '../dashboard/dashboard.service';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -24,7 +25,7 @@ export class CountryDetailsEditComponent implements OnInit, OnDestroy {
   @Input() isEditModalOpen: boolean = false;
   @Output() closeEditPopup = new EventEmitter();
 
-  constructor(private dashboardService: DashboardService, private sanitizer: DomSanitizer, private cdRef: ChangeDetectorRef) {}
+  constructor(private dashboardService: DashboardService, private sanitizer: DomSanitizer, private cdRef: ChangeDetectorRef, private renderer:Renderer2) {}
 
   ngOnInit(): void {
     console.log(this.countryDetails); // Check if data is passed

@@ -28,13 +28,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   showAllCountries() {
     this.displayedCountries = this.countriesList;
-    // this.isViewAll = true;
-  }
-
-  // Close the "View All" and show only the first 3 countries again
-  closeAllCountries() {
-    this.displayedCountries = this.countriesList.slice(0, 3);
-    // this.isViewAll = false;
   }
   
  getAllCountries() {

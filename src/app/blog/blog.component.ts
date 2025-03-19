@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit, Renderer2 } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
 import { BlogService } from './blog.service';
 
@@ -20,11 +20,13 @@ export class BlogComponent implements OnInit, OnDestroy {
   isModaleditOpen = false
   isEditing: number | null = null;
   editingIndex: number | null = null;
-  // successmessage : any ;
-  // successMessage : string = " ";
+  successMessage: string = '';
   private unsubscribe$ = new Subject<void>();
 
-  constructor(private service: BlogService) {}
+  constructor(private service: BlogService,
+    private cdRef: ChangeDetectorRef,
+    private renderer:Renderer2
+  ) {}
 
   ngOnInit() {
     this.service.fetchAndSetblogs();
@@ -33,7 +35,7 @@ export class BlogComponent implements OnInit, OnDestroy {
       .subscribe((blogs) => {
         this.blogsList = blogs;
       });
-  }
+  } 
   openModal() {
     this.isModalOpen = true;
     this.title = " ";
@@ -52,10 +54,12 @@ export class BlogComponent implements OnInit, OnDestroy {
     this.description = item.description;
     this.date = item.date;
     this.image = item.image;
+    this.isModalOpen = true;
   }
   closeEditModal() {
     this.isModaleditOpen = false;
     this.editingIndex = null;
+    this.isModalOpen = false;
   }
   
   saveCard() {
@@ -78,6 +82,7 @@ export class BlogComponent implements OnInit, OnDestroy {
       
     }
   }
+
   cancelEdit() {
     this.isEditing = null;
   }
@@ -120,7 +125,7 @@ export class BlogComponent implements OnInit, OnDestroy {
       reader.readAsDataURL(file);
     });
   }
-  async submitBlog() {
+  async submitBlog() { 
     if (this.file) {
       const base64Image = await this.convertFileToBase64(this.file);
       this.image = base64Image;
@@ -137,12 +142,17 @@ export class BlogComponent implements OnInit, OnDestroy {
     this.service.addBlog(blogData).subscribe((res) => {
     this.resetForm();
     this.service.fetchAndSetblogs();  
-    // if (this.title) {
-    //   this.successmessage= true;
-    //   this.successMessage = "Blog added successfully!"
-    // }
-    // console.log('Blog added successfully!')
+
+    this.successMessage = 'Blog added successfully!';
+    
+      // Automatically hide the message after 3 seconds
+      setTimeout(() => {
+        this.successMessage = '';
+        this.isModalOpen = false; 
+      }, 3000);
     });
+
+   
   }
 
   resetForm() {

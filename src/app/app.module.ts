@@ -18,6 +18,8 @@ import { CommonModule } from '@angular/common';
 import { FormsComponent } from './forms/forms.component';
 import { BlogComponent } from './blog/blog.component';
 import { ContactusComponent } from './contactus/contactus.component';
+import { DashboradBlogsComponent } from './dashboard/dashborad-blogs/dashborad-blogs.component';
+import { DashboardContactComponent } from './dashboard/dashboard-contact/dashboard-contact.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +35,8 @@ import { ContactusComponent } from './contactus/contactus.component';
     FormsComponent,
     BlogComponent,
     ContactusComponent,
+    DashboradBlogsComponent,
+    DashboardContactComponent,
   ],
   imports: [
     BrowserModule,

@@ -4,12 +4,14 @@ import {
   Input,
   OnDestroy,
   OnInit,
+  Renderer2,
   SimpleChanges,
 } from '@angular/core';
 import { DashboardService } from '../dashboard/dashboard.service';
 import { NgForm } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-card',
@@ -17,7 +19,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./card.component.scss'],
 })
 export class CardComponent implements OnInit, OnDestroy {
-  @Input() items?: any[]; // input items array
+  @Input() items: any[]=[]; // input items array
   beUrl: string = 'http://localhost:4000/';
   isModalOpen = false;
   isEditModalOpen = false;
@@ -26,6 +28,9 @@ export class CardComponent implements OnInit, OnDestroy {
   file!: File | null;
   editableImage: any;
   updatedItem: any;
+  destroy$=new Subject<any>();
+  cardItems:any;
+  allFlagsEnabled:boolean=true;
   newCountry: {
     country_name: string;
     country_code: string;
@@ -40,15 +45,30 @@ export class CardComponent implements OnInit, OnDestroy {
     private dashboardService: DashboardService,
     private sanitizer: DomSanitizer,
     private cdRef: ChangeDetectorRef,
-    private router: Router
+    private router: Router,
+    private renderer:Renderer2
   ) {}
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log(changes);
+    if (changes['items'] && changes['items'].currentValue) {
+      this.cardItems = changes['items'].currentValue;
+      console.log('Items changed:', this.cardItems);
+      if(this.allFlagsEnabled){
+        this.cardItems = this.cardItems.slice(0, 4); 
+      }
+    }
   }
+
   ngOnInit(): void {
-    // For sanitizing image URLs if required
-    this.items?.forEach((item) => {
+    console.log('Initial items:', this.items);
+    if (this.items && this.items.length > 0) {
+      this.updateCardItems(this.cardItems);
+    }
+  }
+
+  // Helper method to process cardItems (sanitizing image paths)
+  private updateCardItems(cardItems:any): void {
+    cardItems?.forEach((item: any) => {
       item.imagePath = this.sanitizer.bypassSecurityTrustResourceUrl(
         `data:image/png;base64, ${item.imagePath}`
       );
@@ -65,6 +85,7 @@ export class CardComponent implements OnInit, OnDestroy {
 
   // Edit card and open the edit modal
   openEditModal(item: any, index: number) {
+    this.isModalOpen = true;
     this.isEditModalOpen = true; // Open the edit modal
     this.isEditing = index; // Mark the current card as editing
     this.newCountry = { ...item }; // Pass the current country details to the modal
@@ -73,6 +94,7 @@ export class CardComponent implements OnInit, OnDestroy {
 
   // Close the edit modal
   closeEditPopup(event: any) {
+    this.isModalOpen = false;
     this.isEditModalOpen = event;
     this.isEditing = null; // Reset editing status
   }
@@ -135,5 +157,17 @@ export class CardComponent implements OnInit, OnDestroy {
     this.newCountry.imagePath = '';
     this.isModalOpen = false;
   }
-  ngOnDestroy(): void {}
+ 
+  showAllFlags(){
+    this.allFlagsEnabled=false;
+    this.cardItems=[...this.items];
+  }
+  hideSomeFlags(){
+    this.allFlagsEnabled=true;
+    this.cardItems = this.cardItems.slice(0, 4); 
+  }
+  ngOnDestroy(): void {
+    this.destroy$.next(true);
+    this.destroy$.complete();
+  }
 }
