@@ -4,23 +4,22 @@ import { ContactusService } from './contactus.service';
 @Component({
   selector: 'app-contactus',
   templateUrl: './contactus.component.html',
-  styleUrls: ['./contactus.component.scss']
+  styleUrls: ['./contactus.component.scss'],
 })
 export class ContactusComponent implements OnInit {
-ContactForms: any[] = [];
-name: string= "";
-email: string="";
-phone: string="";
-service: string="";
+  ContactForms: any[] = [];
+  name: string = '';
+  email: string = '';
+  phone: string = '';
+  service: string = '';
+  createdAt: any = '';
 
+  constructor(private Service: ContactusService) {}
 
-constructor(private Service:ContactusService){}
-
-ngOnInit(){
-  this.Service.getAllContactforms().subscribe((res)=>{
-     console.log(res)  
-     this.ContactForms = res
-  })
-}
-
+  ngOnInit() {
+    this.Service.getAllContactforms().subscribe((res) => {
+      console.log(res);
+      this.ContactForms = res;
+    });
+  }
 }
