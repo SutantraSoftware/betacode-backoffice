@@ -52,8 +52,8 @@
       <td>{{ item.email }}</td>
       <td>{{ item.phone }}</td>
       <td>{{ item.service }}</td>
-      <td>{{ item.createdAt }}</td>
-      <td></td>
+      <td>{{ item.createdAt | date : "dd-MM-yyyy" }} &
+      {{ item.createdAt | date : "hh:mm a" }} </td> 
     </tr>
   </tbody>
 </table>

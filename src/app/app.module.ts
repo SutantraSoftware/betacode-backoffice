@@ -20,6 +20,7 @@ import { BlogComponent } from './blog/blog.component';
 import { ContactusComponent } from './contactus/contactus.component';
 import { DashboradBlogsComponent } from './dashboard/dashborad-blogs/dashborad-blogs.component';
 import { DashboardContactComponent } from './dashboard/dashboard-contact/dashboard-contact.component';
+import { MaincontactusComponent } from './maincontactus/maincontactus.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { DashboardContactComponent } from './dashboard/dashboard-contact/dashboa
     ContactusComponent,
     DashboradBlogsComponent,
     DashboardContactComponent,
+    MaincontactusComponent,
   ],
   imports: [
     BrowserModule,

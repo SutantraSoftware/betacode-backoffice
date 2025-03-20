@@ -255,6 +255,10 @@ label {
   border-radius: 4px;
   background-color: #fff;
   transition: all 0.3s ease;
+
+  resize: none; 
+  width: 100%; 
+  overflow: hidden;
 }
 
 /* Input Field Hover and Focus Effects */

@@ -143,13 +143,11 @@ export class BlogComponent implements OnInit, OnDestroy {
     this.resetForm();
     this.service.fetchAndSetblogs();  
 
-    this.successMessage = 'Blog added successfully!';
-    
-      // Automatically hide the message after 3 seconds
+    this.successMessage = 'Blog added successfully!'; 
       setTimeout(() => {
         this.successMessage = '';
         this.isModalOpen = false; 
-      }, 3000);
+      }, 2000);
     });
 
    
