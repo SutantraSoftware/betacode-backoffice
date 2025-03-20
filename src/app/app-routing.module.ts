@@ -7,6 +7,7 @@ import { SignupComponent } from './signup/signup.component';
 import { FormsComponent } from './forms/forms.component';
 import { BlogComponent } from './blog/blog.component';
 import { ContactusComponent } from './contactus/contactus.component';
+import { MaincontactusComponent } from './maincontactus/maincontactus.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -16,6 +17,7 @@ const routes: Routes = [
   { path: 'form', component: FormsComponent },
   { path: 'blog', component: BlogComponent },
   { path: 'contactus', component : ContactusComponent},
+  { path: 'maincontactus', component : MaincontactusComponent},
   
 
   { path: 'country/:code', component: FormsComponent },

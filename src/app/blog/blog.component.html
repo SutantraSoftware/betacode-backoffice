@@ -9,17 +9,21 @@
     <h2>Add New Blog</h2>
 
     <form #blogForm="ngForm" class="form-container">
+
+      <div *ngIf="successMessage" class="success-message">
+        {{ successMessage }}
+      </div> 
       
       <div class="form-group">
         <label for="countryName">Title</label>
-        <input id="countryName" name="title" [(ngModel)]="title" required class="input-field" />
+        <textarea id="countryName" name="title" [(ngModel)]="title" required class="input-field" rows="2"></textarea>
       </div>
-
+      
       <div class="form-group">
         <label for="countryCode">Description</label>
-        <input id="countryCode" name="description" [(ngModel)]="description" required class="input-field" />
+        <textarea id="countryCode" name="description" [(ngModel)]="description" required class="input-field" rows="4" cols="50"></textarea>
       </div>
-
+      
       <div class="form-group">
         <label for="countryImage">Image</label>
         <input type="file" id="countryImage" (change)="onFileChange($event)" class="input-field" />
@@ -37,9 +41,7 @@
       <div class="form-actions">
         <button type="submit" class="btn-submit" (click)="submitBlog()">Add Blog</button>
       </div>
-      <div *ngIf="successMessage" class="success-message">
-        {{ successMessage }}
-      </div> 
+      
     </form>
   </div>
 </div>  
@@ -52,12 +54,12 @@
     <form #blogForm="ngForm" class="form-container">
       <div class="form-group">
         <label for="title">Title</label>
-        <input id="title" name="title" [(ngModel)]="title" required class="input-field" />
+        <textarea id="title" name="title" [(ngModel)]="title" required class="input-field" rows="2"></textarea>
       </div>
 
       <div class="form-group">
         <label for="description">Description</label>
-        <input id="description" name="description" [(ngModel)]="description" required class="input-field" />
+        <textarea id="description" name="description" [(ngModel)]="description" required class="input-field" rows="9" cols="50"> </textarea>
       </div>
 
       <div class="form-group">

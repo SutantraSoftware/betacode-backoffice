@@ -19,7 +19,12 @@ export class ContactusComponent implements OnInit {
   ngOnInit() {
     this.Service.getAllContactforms().subscribe((res) => {
       console.log(res);
-      this.ContactForms = res;
+      this.ContactForms = res.map(item => ({
+        ...item,
+        createdAt: new Date(item.createdAt) 
+      }));
+      this.ContactForms.sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
+      
     });
   }
 }

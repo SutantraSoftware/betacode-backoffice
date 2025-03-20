@@ -1,0 +1,33 @@
+<table class="contact-table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>subject</th>
+            <th>project</th>
+            <th>message</th>
+            <th>Date & Time</th>
+        </tr>
+    </thead>
+
+<tbody>
+    <tr *ngFor="let items of mainContactusForms">
+        <td>{{ items.name }}</td>
+        <td>{{ items.email }}</td>
+        <td>{{ items.phone }}</td>
+        <td>{{ items.subject }}</td>
+        <td>{{ items.project }}</td>
+        <td>{{ items.message }}</td>
+        <td>{{ items.createdAt | date : "dd-MM-yyyy" }} &
+        {{ items.createdAt | date : "hh:mm a" }} </td> 
+    </tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
