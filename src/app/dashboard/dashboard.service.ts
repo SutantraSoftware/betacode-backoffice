@@ -7,19 +7,20 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root',
 })
 export class DashboardService {
-  private apiUrlLocal = environment.apiUrlLocal;
   private apiUrl = environment.apiUrl;
   private countriesSubject = new BehaviorSubject<any[]>([]);
-  countries$ = this.countriesSubject.asObservable(); // Observable for subscribing components
+  countries$ = this.countriesSubject.asObservable(); 
   constructor(private http: HttpClient) {}
+
+  
 
   // Get countries details
   getCountriesDetails(): Observable<any> {
-    return this.http.get(`${this.apiUrlLocal}/getAllCountries`);
+    return this.http.get(`${this.apiUrl}/getAllCountries`);
   }
 
   addCountryDetails(country: any): Observable<any> {
-    return this.http.post(`${this.apiUrlLocal}/insertCountry`, country);
+    return this.http.post(`${this.apiUrl}/insertCountry`, country);
   }
 
   // Update country details
@@ -28,38 +29,38 @@ export class DashboardService {
     updatedCountry: any
   ): Observable<any> {
     return this.http.put(
-      `${this.apiUrlLocal}/updateCountry/${updatedValueId}`,
+      `${this.apiUrl}/updateCountry/${updatedValueId}`,
       updatedCountry
     );
   }
 
   fetchAndSetCountries() {
     this.getCountriesDetails().subscribe((countriesList: any[]) => {
-      this.countriesSubject.next(countriesList); // Emit the new list
+      this.countriesSubject.next(countriesList); 
     });
   }
 
   deleteCountryDetails(deletedValueId: any): Observable<any> {
     return this.http.delete(
-      `${this.apiUrlLocal}/deleteCountry/${deletedValueId}`
+      `${this.apiUrl}/deleteCountry/${deletedValueId}`
     );
   }
 
-  //content form
+ 
 
   addContentToCountry(formValues: any): Observable<any> {
-    return this.http.post(`${this.apiUrlLocal}/addcountryform`, formValues);
+    return this.http.post(`${this.apiUrl}/addcountryform`, formValues);
   }
 
   updateContentToCountry(formValues: any, id: any): Observable<any> {
     return this.http.put(
-      `${this.apiUrlLocal}/updatecountryform/${id}`,
+      `${this.apiUrl}/updatecountryform/${id}`,
       formValues
     );
   }
   getCountryContent(countryCode: string): Observable<any> {
     return this.http.get(
-      `${this.apiUrlLocal}/getSingleCountryform?country_code=${countryCode}`
+      `${this.apiUrl}/getSingleCountryform?country_code=${countryCode}`
     );
   }
 }

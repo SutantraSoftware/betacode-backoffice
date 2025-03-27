@@ -1,7 +1,6 @@
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
-import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-header',
@@ -24,10 +23,11 @@ export class HeaderComponent implements OnInit, OnDestroy{
   logout() {
     localStorage.setItem('isLoggedIn', 'false');
     localStorage.removeItem('isLoggedIn');
-    localStorage.removeItem('userName');
-    setTimeout(()=>{
-      this.router.navigate(['/login']);
-    },500);
+    localStorage.removeItem('userName'); 
+    this.router.navigate(['/login']);
+    // setTimeout(()=>{
+    //   this.router.navigate(['/login']);
+    // },500);
   }
 
   ngOnDestroy(): void {
