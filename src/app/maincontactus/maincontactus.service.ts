@@ -9,13 +9,12 @@ import { environment } from 'src/environments/environment';
 export class MaincontactusService {
 
 private apiUrl = environment.apiUrl
-private apiUrlLocal = environment.apiUrlLocal
 
 
 constructor(private http:HttpClient) { }
 
 getAllMainContactusforms(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrlLocal}/allcontactusforms`);
+    return this.http.get<any[]>(`${this.apiUrl}/allcontactusforms`);
 }
 }
  

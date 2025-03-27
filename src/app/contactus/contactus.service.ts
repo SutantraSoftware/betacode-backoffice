@@ -7,12 +7,12 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class ContactusService {
-  private apiUrlLocal = environment.apiUrlLocal
+  private apiUrl = environment.apiUrl
 
   constructor(private http: HttpClient) { }
 
   getAllContactforms(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrlLocal}/allContactforms`);
+    return this.http.get<any[]>(`${this.apiUrl}/allContactforms`);
   }
   
 
